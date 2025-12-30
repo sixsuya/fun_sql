@@ -1,4 +1,4 @@
--- Á¶°ÇÀ» ÁöÁ¤ÇÏ°í ±× °ª¸¸ ºÒ·¯¿À±â : WHERE Á¶°ÇÀý ÀÛ¼º
+-- ì¡°ê±´ì„ ì§€ì •í•˜ê³  ê·¸ ê°’ë§Œ ë¶ˆëŸ¬ì˜¤ê¸° : WHERE ì¡°ê±´ì ˆ ìž‘ì„±
 SELECT * 
 from emp
 WHERE sal < 3000
@@ -7,162 +7,162 @@ WHERE sal < 3000
 SELECT * 
 from emp
 WHERE sal < 3000
-AND job = 'SALESMAN'     -- Á¶°ÇÀ» Ãß°¡·Î ´Þ¶§´Â AND »ç¿ë(¸ðµÎ¸¸Á·)
+AND job = 'SALESMAN'     -- ì¡°ê±´ì„ ì¶”ê°€ë¡œ ë‹¬ë•ŒëŠ” AND ì‚¬ìš©(ëª¨ë‘ë§Œì¡±)
 ;
 
-SELECT ename, sal "ÀÎ»óÀü ±Þ¿©" , sal * 1.1        -- Á¶È¸µÈ °ª¿¡ Á¶°ÇÀ» Ãß°¡ÇÏ¿© Ç¥½Ã
-as "ÀÎ»óµÈ ±Þ¿©"
+SELECT ename, sal "ì¸ìƒì „ ê¸‰ì—¬" , sal * 1.1        -- ì¡°íšŒëœ ê°’ì— ì¡°ê±´ì„ ì¶”ê°€í•˜ì—¬ í‘œì‹œ
+as "ì¸ìƒëœ ê¸‰ì—¬"
 from emp
 WHERE sal < 3000
 AND job = 'SALESMAN'
 ;
 
 SELECT ename
-, sal "ÀÎ»óÀü ±Þ¿©" 
-, sal + comm "ÃÑ±Þ¿©"     -- Å×ÀÌºí ³¢¸® °ªÀ» ¿¬»êÇÒ¼öµµ ÀÖÀ½
+, sal "ì¸ìƒì „ ê¸‰ì—¬" 
+, sal + comm "ì´ê¸‰ì—¬"     -- í…Œì´ë¸” ë¼ë¦¬ ê°’ì„ ì—°ì‚°í• ìˆ˜ë„ ìžˆìŒ
 , sal * 1.1 
-as "ÀÎ»óµÈ ±Þ¿©"
+as "ì¸ìƒëœ ê¸‰ì—¬"
 from emp
 WHERE sal < 3000
 AND job = 'SALESMAN'
 ;
 
 SELECT ename
-, sal "ÀÎ»óÀü ±Þ¿©" 
-, sal + comm "ÃÑ±Þ¿©"
-, (sal + comm) * 1.1       -- °ýÈ£·Î ¹­¾î¼­ ¿¬»ê Àû¿ë °¡´É
-as "ÀÎ»óµÈ ±Þ¿©(±Þ¿©+º¸³Ê½º)"
+, sal "ì¸ìƒì „ ê¸‰ì—¬" 
+, sal + comm "ì´ê¸‰ì—¬"
+, (sal + comm) * 1.1       -- ê´„í˜¸ë¡œ ë¬¶ì–´ì„œ ì—°ì‚° ì ìš© ê°€ëŠ¥
+as "ì¸ìƒëœ ê¸‰ì—¬(ê¸‰ì—¬+ë³´ë„ˆìŠ¤)"
 from emp
 WHERE sal < 3000
 AND job = 'SALESMAN'
 ;
 
 SELECT ename
-, sal "ÀÎ»óÀü ±Þ¿©" 
-, sal + comm "ÃÑ±Þ¿©"
+, sal "ì¸ìƒì „ ê¸‰ì—¬" 
+, sal + comm "ì´ê¸‰ì—¬"
 , (sal + comm) * 1.1 
-as "ÀÎ»óµÈ ±Þ¿©(±Þ¿©+º¸³Ê½º)"
+as "ì¸ìƒëœ ê¸‰ì—¬(ê¸‰ì—¬+ë³´ë„ˆìŠ¤)"
 from emp
 WHERE sal < 3000
 AND job = 'SALESMAN'
-ORDER BY ename;        -- ÀÌ¸§ ¼øÀ¸·Î Á¤·Ä
+ORDER BY ename;        -- ì´ë¦„ ìˆœìœ¼ë¡œ ì •ë ¬
 ;
 
 SELECT ename
-, sal "ÀÎ»óÀü ±Þ¿©" 
-, sal + comm "ÃÑ±Þ¿©"
+, sal "ì¸ìƒì „ ê¸‰ì—¬" 
+, sal + comm "ì´ê¸‰ì—¬"
 , (sal + comm) * 1.1 
-as "ÀÎ»óµÈ ±Þ¿©(±Þ¿©+º¸³Ê½º)"
+as "ì¸ìƒëœ ê¸‰ì—¬(ê¸‰ì—¬+ë³´ë„ˆìŠ¤)"
 from emp
 WHERE sal < 3000
 AND job = 'SALESMAN'
-ORDER BY ename desc;        -- ÀÌ¸§ ¼øÀ¸·Î ¿ª¼øÀ¸·Î Á¤·Ä, ±¸¹® ¼ø¼­ Áß¿ä!!
+ORDER BY ename desc;        -- ì´ë¦„ ìˆœìœ¼ë¡œ ì—­ìˆœìœ¼ë¡œ ì •ë ¬, êµ¬ë¬¸ ìˆœì„œ ì¤‘ìš”!!
 ;
 
 SELECT *
 FROM emp
 WHERE sal > 2000
-OR job = 'SALESMAN';         -- OR Á¶°Ç°ªÀ¸·Î ¼³Á¤ °¡´É(¶Ç´Â ¸¸Á·)
+OR job = 'SALESMAN';         -- OR ì¡°ê±´ê°’ìœ¼ë¡œ ì„¤ì • ê°€ëŠ¥(ë˜ëŠ” ë§Œì¡±)
 
 SELECT *
 FROM emp
-WHERE sal <= 3000             -- ¹üÀ§¸¦ ÁöÁ¤ °¡´É(ANDÈ°¿ë)
+WHERE sal <= 3000             -- ë²”ìœ„ë¥¼ ì§€ì • ê°€ëŠ¥(ANDí™œìš©)
 and sal >= 2000;
 
 SELECT *
 FROM emp
-WHERE sal between 2000 AND 3000;  -- »ó±â °ªÀº between AND ·Î È°¿ë °¡´É(½ÃÀÛ ¹× ³¡ °ª Æ÷ÇÔ)
+WHERE sal between 2000 AND 3000;  -- ìƒê¸° ê°’ì€ between AND ë¡œ í™œìš© ê°€ëŠ¥(ì‹œìž‘ ë° ë ê°’ í¬í•¨)
 
 SELECT *
 FROM emp
-WHERE hiredate between '81/01/01' AND '81/12/31'    -- date À¯Çüµµ È°¿ë °¡´É
+WHERE hiredate between '81/01/01' AND '81/12/31'    -- date ìœ í˜•ë„ í™œìš© ê°€ëŠ¥
 ORDER BY hiredate;
 
 
--- in (a,b,c)   : ÇØ´ç °ª¸¸ Ãâ·Â. ¹üÀ§°³³äÀÌ ¾Æ´ÔÀ» ÁÖÀÇ.
+-- in (a,b,c)   : í•´ë‹¹ ê°’ë§Œ ì¶œë ¥. ë²”ìœ„ê°œë…ì´ ì•„ë‹˜ì„ ì£¼ì˜.
 
 SELECT *
 FROM emp
-WHERE deptno in (10,30);     -- in (a,b,c) ¿¡¼­ °ªÀ» 3°³ ¹Ì¸¸ ¼³Á¤ÇÒ¼öµµ ÀÖÀ½
-
-SELECT *
-FROM emp
-WHERE deptno in (10,20)
-AND ename in ('SMITH', 'FORD');     -- ¹®ÀÚ¿­µµ »ç¿ë °¡´É
+WHERE deptno in (10,30);     -- in (a,b,c) ì—ì„œ ê°’ì„ 3ê°œ ë¯¸ë§Œ ì„¤ì •í• ìˆ˜ë„ ìžˆìŒ
 
 SELECT *
 FROM emp
 WHERE deptno in (10,20)
-AND ename NOT in ('SMITH', 'FORD');     -- NOTÀ» »ç¿ëÇÏ¿© Á¦¿Ü ÇÊÅÍ¸µµµ °¡´É
-
--- is null / is not null  ¿©±â¼­ nullÀº °ø¹é°ú´Â ´Ù¸¥ °³³ä. ¿¬»êÀ» ÇÏÁö ¸øÇÏ´Â °ªÀ» ÁöÄªÇÏ´Â °ÍÀÓ.
-SELECT *
-FROM emp
-WHERE comm is null;  -- ¿¬»êÀ» ÇÏÁö ¸øÇÏ±â ¶§¹®¿¡ WHERE comm = null;   ¿ä·¸°Ô´Â »ç¿ëÇÒ¼ö ¾øÀ½.
+AND ename in ('SMITH', 'FORD');     -- ë¬¸ìžì—´ë„ ì‚¬ìš© ê°€ëŠ¥
 
 SELECT *
 FROM emp
-WHERE comm is not null;   -- 0ÀÎ °ªµµ °¡Á®¿È(0Àº null°ªÀÌ ¾Æ´Ô)
+WHERE deptno in (10,20)
+AND ename NOT in ('SMITH', 'FORD');     -- NOTì„ ì‚¬ìš©í•˜ì—¬ ì œì™¸ í•„í„°ë§ë„ ê°€ëŠ¥
 
--- LIKE  : À¯»çÇÏ´Ù´Â °³³äÀÓ. same°ú´Â ´Ù¸¥ °³³ä. %¿Í _ »ç¿ë
+-- is null / is not null  ì—¬ê¸°ì„œ nullì€ ê³µë°±ê³¼ëŠ” ë‹¤ë¥¸ ê°œë…. ì—°ì‚°ì„ í•˜ì§€ ëª»í•˜ëŠ” ê°’ì„ ì§€ì¹­í•˜ëŠ” ê²ƒìž„.
 SELECT *
 FROM emp
-WHERE ename LIKE '%LA%';    -- ¿©±â¼­ %´Â ¸ðµç°ª ÀÌ¶ó´Â ¶æÀÓ.Áï, LA¸¦ Æ÷ÇÔÇÑ ¸ðµç °ª
-
-SELECT *
-FROM emp
-WHERE ename LIKE '%LA';    -- LA·Î ³¡³ª´Â °ªÀÌ¶ó´Â ÀÇ¹Ì. ÇØ´ç°ª ¾øÀ½
+WHERE comm is null;  -- ì—°ì‚°ì„ í•˜ì§€ ëª»í•˜ê¸° ë•Œë¬¸ì— WHERE comm = null;   ìš”ë ‡ê²ŒëŠ” ì‚¬ìš©í• ìˆ˜ ì—†ìŒ.
 
 SELECT *
 FROM emp
-WHERE ename LIKE '_LA%';    -- ¾ð´õ¹Ù´Â ±ÛÀÚ ÇÏ³ª¿¡ ´ëÀÀÇÑ´Ù´Â ÀÇ¹Ì. Áï, LA ¾Õ¿¡ ±ÛÀÚ ÇÏ³ª Æ÷ÇÔÇÏ¸é Ãâ·Â
+WHERE comm is not null;   -- 0ì¸ ê°’ë„ ê°€ì ¸ì˜´(0ì€ nullê°’ì´ ì•„ë‹˜)
 
---¿¬»êÀÚ ¿¹Á¦--
--- Âü°í : primary key : id³ª °íÀ¯¹øÈ£ Ã³·³ Áßº¹µÈ °ªÀÌ Á¸ÀçÇÏÁö ¾Ê´Â °ªÀ» ÀÇ¹Ì / professor ¿¡¼­´Â profno°ª.
+-- LIKE  : ìœ ì‚¬í•˜ë‹¤ëŠ” ê°œë…ìž„. sameê³¼ëŠ” ë‹¤ë¥¸ ê°œë…. %ì™€ _ ì‚¬ìš©
+SELECT *
+FROM emp
+WHERE ename LIKE '%LA%';    -- ì—¬ê¸°ì„œ %ëŠ” ëª¨ë“ ê°’ ì´ë¼ëŠ” ëœ»ìž„.ì¦‰, LAë¥¼ í¬í•¨í•œ ëª¨ë“  ê°’
+
+SELECT *
+FROM emp
+WHERE ename LIKE '%LA';    -- LAë¡œ ëë‚˜ëŠ” ê°’ì´ë¼ëŠ” ì˜ë¯¸. í•´ë‹¹ê°’ ì—†ìŒ
+
+SELECT *
+FROM emp
+WHERE ename LIKE '_LA%';    -- ì–¸ë”ë°”ëŠ” ê¸€ìž í•˜ë‚˜ì— ëŒ€ì‘í•œë‹¤ëŠ” ì˜ë¯¸. ì¦‰, LA ì•žì— ê¸€ìž í•˜ë‚˜ í¬í•¨í•˜ë©´ ì¶œë ¥
+
+--ì—°ì‚°ìž ì˜ˆì œ--
+-- ì°¸ê³  : primary key : idë‚˜ ê³ ìœ ë²ˆí˜¸ ì²˜ëŸ¼ ì¤‘ë³µëœ ê°’ì´ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” ê°’ì„ ì˜ë¯¸ / professor ì—ì„œëŠ” profnoê°’.
 SELECT *
 FROM professor;
 
 SELECT *
-FROM department;   --¿©±â¼­ 101°ú 103°ú 2°³ °úÀÇ ±³¼ö´Ô¸¸ À§¿¡¼­ Á¶È¸ÇÏ°í ½ÍÀ½
+FROM department;   --ì—¬ê¸°ì„œ 101ê³¼ 103ê³¼ 2ê°œ ê³¼ì˜ êµìˆ˜ë‹˜ë§Œ ìœ„ì—ì„œ ì¡°íšŒí•˜ê³  ì‹¶ìŒ
 
 SELECT *
 FROM professor
 WHERE deptno in(101, 103)
-AND profno like '3%';   -- À§¿¡¼­ profno°¡ 3À¸·Î ½ÃÀÛÇÏ´Â °ª¸¸.
+AND profno like '3%';   -- ìœ„ì—ì„œ profnoê°€ 3ìœ¼ë¡œ ì‹œìž‘í•˜ëŠ” ê°’ë§Œ.
 
 SELECT *
 FROM professor
 WHERE deptno in(101, 103)
-AND position NOT in ('a full professor');  -- position ¿¡¼­ fullÀ» Æ÷ÇÔÇÏÁö ¾Ê´Â °ª¸¸--
+AND position NOT in ('a full professor');  -- position ì—ì„œ fullì„ í¬í•¨í•˜ì§€ ì•ŠëŠ” ê°’ë§Œ--
 
 
 SELECT *
 FROM professor
 WHERE bonus is null and pay >= 300
-or pay+bonus >= 300                    -- 300 ³Ñ°Ô ¹Þ´Â »ç¶÷ Áß¿¡ null°ªÀÎ »ç¶÷µµ Æ÷ÇÔ
+or pay+bonus >= 300                    -- 300 ë„˜ê²Œ ë°›ëŠ” ì‚¬ëžŒ ì¤‘ì— nullê°’ì¸ ì‚¬ëžŒë„ í¬í•¨
 ;
 
--- À§ÀÇ ¹æ½ÄÀ» nvlÀ» ÅëÇØ °£·«È÷ Ç¥Çö °¡´ÉÇÔ => nvl(°æ·Î,Ä¡È¯°ª ) : null°ªÀÎ °æ¿ì¿¡ ±×°ÍÀ» Ä¡È¯ÇØ ÁÖ´Â ¸í·É¾î
+-- ìœ„ì˜ ë°©ì‹ì„ nvlì„ í†µí•´ ê°„ëžµížˆ í‘œí˜„ ê°€ëŠ¥í•¨ => nvl(ê²½ë¡œ,ì¹˜í™˜ê°’ ) : nullê°’ì¸ ê²½ìš°ì— ê·¸ê²ƒì„ ì¹˜í™˜í•´ ì£¼ëŠ” ëª…ë ¹ì–´
 SELECT *
 FROM professor
 WHERE pay + nvl(bonus, 0) >= 300
 ;
 
 select *
-from employees;   -- scott °èÁ¤Àº ÀÌ°Å Á¶È¸ ±ÇÇÑ ¾øÀ½
+from employees;   -- scott ê³„ì •ì€ ì´ê±° ì¡°íšŒ ê¶Œí•œ ì—†ìŒ
 
--- p.59 ÁýÇÕ¿¬»êÀÚ
--- ±³¼ö, ÇÐ»ý µÎ°¡Áö¸¦ °¡Áö°í => ±³¼ö(ÇÐ»ý)¹øÈ£ / ÀÌ¸§ / ÇÐ°úÁ¤º¸ ÃëÇÕÇÏ¿© Ãâ·ÂÇÏ°íÀÚ ÇÔ. °¢ Å×ÀÌºí¿¡¼­ Á¤º¸ °¡Á®¿Í¾ßÇÔ
-SELECT profno, name, deptno  -- ±³¼öÁ¤º¸
+-- p.59 ì§‘í•©ì—°ì‚°ìž
+-- êµìˆ˜, í•™ìƒ ë‘ê°€ì§€ë¥¼ ê°€ì§€ê³  => êµìˆ˜(í•™ìƒ)ë²ˆí˜¸ / ì´ë¦„ / í•™ê³¼ì •ë³´ ì·¨í•©í•˜ì—¬ ì¶œë ¥í•˜ê³ ìž í•¨. ê° í…Œì´ë¸”ì—ì„œ ì •ë³´ ê°€ì ¸ì™€ì•¼í•¨
+SELECT profno, name, deptno  -- êµìˆ˜ì •ë³´
 FROM professor
 ;
-SELECT studno, name, deptno1  -- ÇÐ»ýÁ¤º¸
+SELECT studno, name, deptno1  -- í•™ìƒì •ë³´
 FROM student
 ;
 
 SELECT profno, name, deptno
 FROM professor
-UNION ALL                      -- UNION ALL : Áßº¹°ª ÀÖ¾îµµ ¸ðµÎ Ãâ·Â
+UNION ALL                      -- UNION ALL : ì¤‘ë³µê°’ ìžˆì–´ë„ ëª¨ë‘ ì¶œë ¥
 SELECT studno, name, deptno1
 FROM student
 ;
@@ -170,25 +170,25 @@ FROM student
 
 SELECT profno, name, deptno
 FROM professor
-UNION                      -- UNIONL : Áßº¹°ª Á¦¿Ü ÇÏ°í Ãâ·Â
+UNION                      -- UNIONL : ì¤‘ë³µê°’ ì œì™¸ í•˜ê³  ì¶œë ¥
 SELECT studno, name, deptno1
 FROM student
 ;
 
--- UNION ¿¹½Ã --
+-- UNION ì˜ˆì‹œ --
 SELECT studno, name
-FROM student                   -- 4°Ç
+FROM student                   -- 4ê±´
 WHERE deptno1 = 101
 ;
 SELECT studno, name
-FROM student                  -- 2°Ç
+FROM student                  -- 2ê±´
 WHERE deptno2 = 201
 ;
 
 SELECT studno, name
 FROM student
 WHERE deptno1 = 101
-UNION ALL                       -- 6°Ç
+UNION ALL                       -- 6ê±´
 SELECT studno, name
 FROM student
 WHERE deptno2 = 201
@@ -197,7 +197,7 @@ WHERE deptno2 = 201
 SELECT studno, name
 FROM student
 WHERE deptno1 = 101
-UNION                   -- 5°Ç(Áßº¹1°³ Á¦¿Ü)
+UNION                   -- 5ê±´(ì¤‘ë³µ1ê°œ ì œì™¸)
 SELECT studno, name
 FROM student
 WHERE deptno2 = 201
@@ -210,27 +210,36 @@ UNION ALL
 SELECT studno, name
 FROM student
 WHERE deptno2 = 201
-order by 1           -- Á¤·ÄÇØ¼­ Ãâ·Â
+order by 1           -- ì •ë ¬í•´ì„œ ì¶œë ¥
 ;
 
 -- INTERSECT
 SELECT studno, name
 FROM student
 WHERE deptno1 = 101
-INTERSECT                 -- INTERSECT : Áßº¹°ª(±³ÁýÇÕ)¸¸ Ãâ·Â
+INTERSECT                 -- INTERSECT : ì¤‘ë³µê°’(êµì§‘í•©)ë§Œ ì¶œë ¥
 SELECT studno, name
 FROM student
 WHERE deptno2 = 201
 order by 1         
 ;
 
--- MINUS : Äõ¸®ÀÇ ¼ø¼­°¡ Áß¿ä!
+-- MINUS : ì¿¼ë¦¬ì˜ ìˆœì„œê°€ ì¤‘ìš”!
 SELECT studno, name
 FROM student
 WHERE deptno1 = 101
-MINUS                 -- MINUS : Â÷ÁýÇÕ Ãâ·Â => 101¿¡¼­ 201°úÀÇ Áßº¹°ªÀ» »©°í ³ª¸ÓÁö 101 Ãâ·Â.
+MINUS                 -- MINUS : ì°¨ì§‘í•© ì¶œë ¥ => 101ì—ì„œ 201ê³¼ì˜ ì¤‘ë³µê°’ì„ ë¹¼ê³  ë‚˜ë¨¸ì§€ 101 ì¶œë ¥.
 SELECT studno, name
 FROM student
 WHERE deptno2 = 201
 order by 1         
 ;
+
+-- p40 ì—°ìŠµë¬¸ì œ 3
+SELECT ename || '''s sal is $' || sal
+AS "Name And Sal"
+FROM emp
+;
+
+
+
