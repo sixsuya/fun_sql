@@ -334,3 +334,424 @@ GROUP BY deptno, job;
 
 SELECT *
 FROM emp;
+
+--p.156~ 복수행 함수
+SELECT job
+		,sum(sal)
+		,count(sal) "n"
+		,round(avg(sal)) "직무별 평균 급여" 
+FROM emp
+GROUP BY job                        -- where 절 조건문
+HAVING round(avg(sal)) > 1500       -- having 절 조건문
+;
+
+-- 아래와 같이는 표현할수 없음 : where에는 그룹과 상관 없는 조건이 들어와야 됨.
+--SELECT job
+--		,sum(sal)
+--		,count(sal) "n"
+--		,round(avg(sal)) "직무별 평균 급여" 
+--FROM emp
+--WHERE round(avg(sal)) > 1500         
+--GROUP BY job                      
+--;
+
+
+-- 위에 having을 쓴것과 결과값이 다름 : salesman 에 1600이 나타남 : 1500보다 큰 사람을 소팅 한 후에 그룹을 지어 버림
+SELECT job
+		,sum(sal)
+		,count(sal) "n"
+		,round(avg(sal)) "직무별 평균 급여" 
+FROM emp
+WHERE sal > 1500
+GROUP BY job                      
+;
+
+-- p.165~ rollup 함수 : 사용하지 않고도 쿼리를 여러개 만들어 표현 가능하나, 쉽게 해주는 기능
+-- 1. 직무별로 평균급여, 사원수 구하고 싶을때.
+SELECT deptno, job, avg(sal), count(1)
+FROM EMP
+GROUP BY deptno, JOB
+;
+
+--2. 부서별 평균급여, 사원수
+SELECT deptno, '', avg(sal), count(1)
+FROM EMP
+GROUP BY  deptno
+;
+
+--3. 전체 평균 급여, 사원수
+SELECT '전체', '합계', round(avg(sal)), count(1)
+FROM EMP
+ORDER BY 1,2
+;
+
+
+
+-- 1번과 2번을 합쳐서 표현
+SELECT deptno, job, avg(sal), count(1)
+FROM EMP
+GROUP BY deptno, JOB
+UNION all
+SELECT deptno, '', avg(sal), count(1)
+FROM EMP
+GROUP BY  deptno
+ORDER BY 1,2
+;
+
+-- 1,2,3번을 합쳐서 표현                    ||'' <- 문자형태로 표시하겠다는 의미 : deptno는 숫자 데이터임
+SELECT deptno||'', job, round(avg(sal)), count(1)
+FROM EMP
+GROUP BY deptno, JOB
+UNION all
+SELECT deptno||'', '소계', round(avg(sal)), count(1)
+FROM EMP
+GROUP BY  deptno
+UNION ALL
+SELECT '전체', '합계', round(avg(sal)), count(1)
+FROM EMP
+ORDER BY 1,2
+;
+
+
+-- 위와 같은 표현을 roll up 함수 사용하여 표현     *참고로 숫자는 오른쪽 정렬, 문자는 왼쪽정렬됨. deptno를 ||''로 문자로 연결해줬으니 왼쪽정렬됨
+SELECT nvl(deptno||'', '전체') dept
+ 		,decode(deptno, NULL, '합계', nvl(job, '소계')) job
+ 		,round(avg(sal))
+ 		,count(1)
+FROM emp
+GROUP BY rollup(deptno, job)
+ORDER BY 1,2
+;
+
+
+--p.220~ join 함수
+SELECT *
+FROM emp
+;
+
+SELECT *
+FROM dept
+;
+
+-- 상기 2개 테이블 연결
+SELECT *
+FROM emp
+JOIN dept ON emp.deptno = dept.deptno
+;
+
+-- 아래와 같이 줄여서 표현함 : driving 테이블 => 선행테이블. 먼저 읽는 테이블. 후에 읽는 것은 driven table 이라고 함.
+SELECT *
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+;
+
+-- 보고싶은 테이블을 select에 지정해서 볼 수 있음
+SELECT e.*
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+;
+
+SELECT d.*
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+;
+
+SELECT empno, ename, dname, loc, e.deptno   --deptno는 중복 테이블이므로, 어느 테이블인지 지정 해줘야 표현 가능함
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+;
+
+--join 조건이 없으면 중복값이 모두 표현됨(10개 값 x 10개값 = 100개값 보여줌)
+SELECT empno, ename, dname, loc, e.deptno
+FROM emp e
+     ,dept d
+WHERE ename = 'KING'
+;
+
+-- join 사용하면 중복값 제거하고 합쳐서 표현됨
+SELECT empno, ename, dname, loc, d.deptno
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE ename = 'KING'
+;
+
+SELECT empno, ename, dname, loc, d.deptno
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE dname = 'ACCOUNTING'
+;
+
+-- ANSI join 문법 vs Oracle join 문법
+SELECT empno, ename, dname, loc, d.deptno
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE dname = 'ACCOUNTING'   -- ANSI 문법
+;
+
+SELECT empno, ename, dname, loc, d.deptno
+FROM emp e
+     ,dept d
+WHERE e.deptno = d.deptno
+AND dname =  'ACCOUNTING'       -- Oracle 문법
+;
+
+-- join은 2개 이상 테이블 사용 가능
+-- 학생, 교수, 학과 join 해보기 (학생을 선행테이블 기준으로)
+-- 학번, 이름, 담당교수 이름, 학과명
+SELECT *
+FROM STUDENT
+;
+
+SELECT *
+FROM professor
+;
+
+SELECT *
+FROM DEPARTMENT
+;
+
+SELECT s.studno "학번"
+		,s.name "학생이름"
+		,p.name "교수이름"
+		,d.dname "학과명"
+FROM student s
+JOIN professor p ON s.profno = p.profno
+JOIN department d ON s.deptno1 = d.deptno
+;
+
+-- p.236~ non-equi join(비등가조인)
+SELECT *
+FROM customer
+;
+
+SELECT *
+FROM gift
+;
+
+SELECT c.GNAME 
+		,c.POINT 
+		,g.gname
+FROM customer c
+JOIN gift g
+ON c.point BETWEEN g.g_start AND g.g_end
+;
+
+-- 똑같은 의미로 between을 아래과 같이 표현 가능
+SELECT c.GNAME 
+		,c.POINT 
+		,g.gname
+FROM customer c
+JOIN gift g
+ON c.point >= g.g_start AND c.point <= g.g_end
+;
+
+--예제 : 학생.학점
+
+SELECT *
+FROM student
+;
+
+SELECT *
+FROM score
+;
+
+SELECT *
+FROM HAKJUM
+;
+
+SELECT t.STUDNO
+       ,t. NAME 
+       ,s.total
+FROM student t
+JOIN SCORE s
+ON s.studno = t.STUDNO
+;
+
+SELECT t.STUDNO 
+		,t.NAME 
+		,s.TOTAL 
+		,h.grade
+FROM student t
+JOIN SCORE s
+ON s.studno = t.STUDNO
+JOIN hakjum h
+ON s.total >= h.MIN_POINT AND s.total <= h.MAX_POINT 
+ORDER BY 3 desc
+;
+
+-- p.254 연습문제 1번
+SELECT *
+FROM student
+;
+SELECT *
+FROM DEPARTMENT d 
+;
+
+SELECT s.name
+		,s.DEPTNO1 
+		,d.dname
+FROM STUDENT s 
+JOIN DEPARTMENT d 
+ON s.deptno1 = d.deptno
+;
+
+-- p.254 연습문제 2번
+SELECT *
+FROM EMP2 e 
+;
+
+SELECT *
+FROM P_GRADE pg 
+;
+
+SELECT e.name
+		,e."POSITION" 
+		,e.pay
+		,pg.S_PAY AS "Low PAY"
+		,pg.E_PAY  AS "High PAY"
+FROM emp2 e
+JOIN P_GRADE pg 
+ON e.POSITION = pg."POSITION" 
+;
+
+-- p.255 연습문제 3번
+SELECT *
+FROM P_GRADE pg 
+;
+
+SELECT *
+FROM EMP2 e 
+;
+
+SELECT e.name		
+		,trunc(MONTHS_BETWEEN(sysdate,e.BIRTHDAY)/12) "AGE"
+		, e."POSITION" "CURR_POSITION"
+		,g.POSITION BE_POSITION
+FROM EMP2 e 
+JOIN p_grade g
+ON trunc(MONTHS_BETWEEN(sysdate,e.BIRTHDAY)/12) >= g.S_AGE 
+AND trunc(MONTHS_BETWEEN(sysdate,e.BIRTHDAY)/12) <= g.E_AGE 
+ORDER BY 2 desc
+;
+
+SELECT e.name		
+		,trunc(MONTHS_BETWEEN(sysdate,e.BIRTHDAY)/12) "AGE"
+		, e."POSITION" "CURR_POSITION"
+		,g.POSITION BE_POSITION
+FROM EMP2 e 
+JOIN p_grade g
+ON trunc(MONTHS_BETWEEN(sysdate,e.BIRTHDAY)/12)
+between g.S_AGE AND g.E_AGE
+ORDER BY 2 desc
+;
+
+-- row 데이터 변경
+--UPDATE EMP2
+--SET birthday = ADD_MONTHS(birthday, -96)
+--WHERE 1=1
+--;
+
+
+--p240~ outer join
+SELECT *
+FROM STUDENT s
+JOIN professor p ON s.profno = p.profno  --student 데이터는 20명이나, professor와 join하면 15명으로 줄어듬 => profno가 null값인 5명 때문
+;
+
+SELECT s.studno "학번"
+		,s.name "학생이름"
+		,p.profno "교수번호"
+		,p.name "교수이름"
+FROM STUDENT s
+LEFT OUTER JOIN professor p ON s.profno = p.profno    -- left outer join : 왼쪽 테이블을 기준으로 join (student의 driving table 데이터 값을 모두 살려서 가져옴)
+;
+
+SELECT s.studno "학번"
+		,s.name "학생이름"
+		,p.profno "교수번호"
+		,p.name "교수이름"
+FROM STUDENT s
+right OUTER JOIN professor p ON s.profno = p.profno    -- right outer join : 오른쪽 테이블을 기준으로 join (professor의 driving table 데이터 값을 모두 살려서 가져옴)
+;
+
+SELECT s.studno "학번"
+		,s.name "학생이름"
+		,p.profno "교수번호"
+		,p.name "교수이름"
+FROM STUDENT s
+full OUTER JOIN professor p ON s.profno = p.profno    -- full outer join : 양쪽 데이터 값을 모두 살려서 가져옴
+;
+
+--p250~ SELF join : 다른 테이블끼리 묶는게 아니라 한 테이블에서 데이터 값을 모두 추출하여 join으로 나타낼때.
+SELECT e1.empno "사원번호"
+		,e1.ename "사원이름"
+		,e2.empno "관리자번호"
+		,e2.ename "관리자이름"
+FROM EMP e1
+LEFT OUTER JOIN emp e2    -- emp 하나의 테이블만 사용하였음.
+ON e1.mgr = e2.empno
+;
+
+SELECT *
+FROM EMP e 
+;
+
+--p.255 연습문제 4
+SELECT *
+FROM CUSTOMER c
+ORDER BY 4 desc
+;
+
+SELECT *
+FROM GIFT g 
+;
+
+SELECT c.GNAME 
+		,c.POINT 
+		,g.gname
+FROM CUSTOMER c 
+JOIN gift g
+ON c.point >= 600000 
+WHERE g.Gno  = 7
+;
+
+
+--p.256 연습문제 5
+SELECT *
+FROM PROFESSOR p 
+;
+
+SELECT p1.profno 
+		,p1.name
+		,p1.HIREDATE 
+		,count(p1.HIREDATE) count
+FROM PROFESSOR p1
+JOIN PROFESSOR p2
+ON p1.HIREDATE  > p2.HIREDATE 
+;
+
+SELECT NAME
+		,count(HIREDATE)
+FROM professor
+;
+
+SELECT p1.profno 
+		,p1.name
+		,p1.HIREDATE
+		,count(p2.HIREDATE) COUNT
+FROM PROFESSOR p1
+JOIN professor p2
+ON p1.HIREDATE = p2.HIREDATE
+WHERE p1.HIREDATE  > p2.HIREDATE 
+GROUP BY p1.profno, p1.name, p1.HIREDATE
+;
+
+
+SELECT p1.profno 
+		,p1.name
+		,TO_CHAR(p1.HIREDATE, 'YYYY/MM/DD') hiredate
+FROM PROFESSOR p1
+JOIN professor p2
+ON p1.HIREDATE = p2.HIREDATE
+GROUP BY p1.profno, p1.name, p1.HIREDATE
+;
