@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>게시글 등록</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #160303;
+        color: white;
+      }
+      .container {
+        width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #000000;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.514);
+      }
+      h2 {
+        text-align: center;
+      }
+      label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        box-sizing: border-box;
+        background-color: rgb(155, 185, 46);
+        color: beige;
+        font-weight: bolder;
+      }
+      textarea {
+        height: 120px;
+        resize: none;
+      }
+      button {
+        margin-top: 20px;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      button.del {
+        background-color: red;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+      }
+      th {
+        background-color: #007bff;
+        color: white;
+      }
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+      .title {
+        text-align: left;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>게시글 등록</h2>
+      <form action="/board" method="post">
+        <label for="bno">게시글 번호</label>
+        <input type="number" id="bno" name="bno" required />
+
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" required />
+
+        <label for="content">내용</label>
+        <textarea id="content" name="content" required></textarea>
+
+        <label for="writer">작성자</label>
+        <input type="text" id="writer" name="writer" required />
+
+        <button type="submit">등록</button>
+      </form>
+    </div>
+    <!-- 글번호/제목/작성자/작성일시 목록으로 아래에 나오게!! -->
+    <div class="container">
+      <h2>게시글 목록</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>글번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일시</th>
+            <th>삭제</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <script src="js/board.js"></script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <h3>welcome to Sixsuya</h3>
+    아래 fetch를 form tag로 표현하면 아래와 같음
+    <form action="#" method="get" enctype="">
+      ID: <input type="text" name="user_id" /><br />
+      PW: <input type="password" name="user_pw" /><br />
+      <button type="submit">전송</button>
+     get을 사용해서 정보를 submit 하면 url에
+      http://localhost:3000/index.html?user_id=user01&user_pw=1111# 와 같이
+      정보가 나옴. 이것이 head 정보로 보내짐. post를 사용하면 위 정보가 body에 담겨서 url에 표시가 안됨 -->
+<!-- </form>
+
+    <script> -->
+<!-- // 아래와 같은 구문은 java script의 객체타입 -->
+<!-- const data = {
+        board_no: 12,
+        title: "test",
+        content: "sample",
+        writer: "user01", -->
+<!-- }; -->
+<!-- // 위의 정보를 서버로 전달 할때는 텍스트 형식으로 보내져야함(객체타입이 아니라)
+// 이것을 텍스트로 바꿔주는 함수가 JSON.stringify() -->
+<!-- const json = JSON.stringify(data); // 객체 데이터를 문자열로 변환
+      const obj = JSON.parse(json); // 문자열을 객체 데이터 형식으로 변환 -->
