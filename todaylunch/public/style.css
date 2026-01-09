@@ -1,0 +1,118 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
+}
+
+header {
+  background: #ff9800;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.tabs {
+  display: flex;
+  background: #333;
+}
+
+.tab {
+  flex: 1;
+  padding: 15px;
+  color: white;
+  background: #444;
+  border: none;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #94a8d3;
+}
+
+.content {
+  display: none;
+  padding: 20px;
+}
+
+.content.active {
+  display: block;
+}
+
+.form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form input,
+textarea,
+select {
+  width: 100%;
+  padding: 6px;
+}
+
+button {
+  padding: 10px 15px;
+  background: #ff9800;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background: #eee;
+  cursor: pointer;
+}
+
+tr:hover {
+  background: #fafafa;
+}
+
+/* 모달 */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  width: 300px;
+  border-radius: 6px;
+}
+adge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.unvisited {
+  background: #e0f3ff;
+  color: #007bff;
+}
+
+.visited {
+  background: #e6e6e6;
+  color: #666;
+}
+
+/* 방문완료된 row 흐리게 */
+tr.visited-row {
+  opacity: 0.6;
+}

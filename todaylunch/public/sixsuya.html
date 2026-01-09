@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>오점뭐 - 오늘 점심 뭐먹지?</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>🍱 오점뭐 (오늘 점심 뭐먹지?)</h1>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" onclick="showTab('list')">목록</button>
+      <button class="tab" onclick="showTab('visited')">방문완료</button>
+      <button class="tab" onclick="showTab('register')">등록</button>
+    </nav>
+
+    <!-- 목록 탭 (기본 활성화) -->
+    <section id="list" class="content active">
+      <h2>식당 목록</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>상태</th>
+            <th>No</th>
+            <th onclick="sortTable(0)">식당명</th>
+            <th onclick="sortTable(1)">구분</th>
+            <th onclick="sortTable(2)">가격</th>
+            <th>할인가</th>
+            <th>최소인원</th>
+          </tr>
+        </thead>
+        <tbody id="listBody" name="listBody"></tbody>
+      </table>
+    </section>
+
+    <!-- 방문완료 탭 -->
+    <section id="visited" class="content">
+      <h2>방문완료 식당</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>식당명</th>
+            <th>별점</th>
+            <th>후기</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>김밥천국</td>
+            <td>⭐ 4.5</td>
+            <td>가성비 최고</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 등록 탭 -->
+    <section id="register" class="content">
+      <h2>식당 등록</h2>
+      <form id="restaurantForm" class="form">
+        <label
+          >NO <input id="restaurant_no" name="restaurant_no" type="number"
+        /></label>
+        <label
+          >식당명
+          <input id="restaurant_name" name="restaurant_name" type="text"
+        /></label>
+        <label
+          >주소
+          <input id="restaurant_address" name="restaurant_address" type="text"
+        /></label>
+
+        <label
+          >요식업 구분
+          <select
+            id="restaurant_category"
+            name="restaurant_category"
+            type="text"
+          >
+            <option>한식</option>
+            <option>중식</option>
+            <option>일식</option>
+            <option>양식</option>
+            <option>프렌차이즈</option>
+          </select>
+        </label>
+
+        <label
+          >대표메뉴
+          <input id="restaurant_menu" name="restaurant_menu" type="text"
+        /></label>
+        <label
+          >식사가격
+          <input id="restaurant_price" name="restaurant_price" type="number"
+        /></label>
+        <label
+          >최소 소요 인원
+          <input id="restaurant_myung" name="restaurant_myung" type="number"
+        /></label>
+        <label
+          >구글/네이버 평점
+          <input
+            id="restaurant_score"
+            name="restaurant_score"
+            type="number"
+            step="0.1"
+        /></label>
+        <label
+          >할인 또는 쿠폰 적용가
+          <input
+            id="restaurant_discount"
+            name="restaurant_discount"
+            type="text"
+        /></label>
+        <label
+          >비고 <textarea id="restaurant_etc" name="restaurant_etc"></textarea>
+        </label>
+
+        <button type="submit">등록</button>
+      </form>
+    </section>
+
+    <!-- 상세 팝업 -->
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <h3>식당 상세정보</h3>
+        <p>식당명 : 김밥천국</p>
+        <p>대표메뉴 : 치즈김밥</p>
+        <p>가격 : 7000원</p>
+
+        <button onclick="openReview()">방문완료</button>
+        <button onclick="closeModal()">닫기</button>
+      </div>
+    </div>
+
+    <!-- 후기 팝업 -->
+    <div class="modal" id="review">
+      <div class="modal-content">
+        <h3>별점 및 후기</h3>
+        <label>별점 <input type="number" step="0.5" max="5" /></label>
+        <label>후기 <textarea></textarea></label>
+        <button onclick="submitReview()">제출</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
